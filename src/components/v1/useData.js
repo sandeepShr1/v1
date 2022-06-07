@@ -2,16 +2,12 @@ import { csv } from 'd3';
 import { useState, useEffect } from 'react';
 
 export const useData = () => {
-      const url = "https://gist.githubusercontent.com/curran/a08a1080b88344b0c8a7/raw/iris.csv";
-      // const url = "https://gist.githubusercontent.com/sandeepShr1/80d742f48c9384ff6345eec3a3c79cad/raw/population.csv";
+      const url = "https://gist.githubusercontent.com/curran/90240a6d88bdb1411467b21ea0769029/raw/week_temperature_sf.csv";
       const [data, setData] = useState(null);
       useEffect(() => {
             const row = (d) => {
-                  d.sepal_length = +d.sepal_length;
-                  d.sepal_width = +d.sepal_width;
-
-                  d.petal_length = +d.petal_length;
-                  d.petal_width = +d.petal_width;
+                  d.temperature = +d.temperature;
+                  d.timestamp = new Date(d.timestamp)
 
                   return d;
             }

@@ -15,11 +15,18 @@
   fill: #635F5D;
 }
 
-.mark {
+.marks circle {
   fill: #137B80;
 }
 
+.marks path {
+  stroke         : #137B80;
+  stroke-width   : 4;
+  stroke-linejoin: round;
+  stroke-linecap : round;
+}
+
 .label-text {
-  font-size: 1.7em;
+  font-size: 1.9em;
   fill     : #635F5D;
 }
