@@ -1,23 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
+import V1 from './components/v1/V1';
+
+const width = 960;
+const height = 500;
+const margin = { top: 20, left: 200, right: 20, bottom: 20 }
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <V1 width={width} height={height} margin={margin} />
     </div>
   );
 }
