@@ -3,7 +3,7 @@ import V1 from './components/v1/V1';
 
 const width = 960;
 const height = 500;
-const margin = { top: 20, left: 200, right: 20, bottom: 20 }
+const margin = { top: 20, left: 220, right: 30, bottom: 50 }
 
 function App() {
   return (

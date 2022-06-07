@@ -1,5 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Lora&family=Roboto:wght@100;400;700;900&family=Vollkorn&display=swap');
+
 * {
-  margin  : 0;
-  padding : 0;
-  overflow: hidden;
+  margin     : 0;
+  padding    : 0;
+  overflow   : hidden;
+  font-family: 'Lato', sans-serif;
+}
+
+.tick line {
+  stroke: #C0C0BB;
+}
+
+.tick text {
+  fill: #635F5D;
+}
+
+.mark {
+  fill: #137B80;
+}
+
+.label-text {
+  font-size: 1.7em;
+  fill     : #635F5D;
 }
