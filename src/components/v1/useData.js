@@ -1,17 +1,19 @@
-import { csv } from 'd3';
+import { json } from 'd3';
 import { useState, useEffect } from 'react';
+import { feature, mesh } from "topojson"
 
 export const useData = () => {
-      const url = "https://gist.githubusercontent.com/curran/90240a6d88bdb1411467b21ea0769029/raw/week_temperature_sf.csv";
+      const url = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json";
       const [data, setData] = useState(null);
+      console.log(data)
       useEffect(() => {
-            const row = (d) => {
-                  d.temperature = +d.temperature;
-                  d.timestamp = new Date(d.timestamp)
-
-                  return d;
-            }
-            csv(url, row).then(setData);
+            json(url,).then(topology => {
+                  const { countries, land } = topology.objects;
+                  setData({
+                        land: feature(topology, land),
+                        interiors: mesh(topology, countries, (a, b) => a !== b)
+                  })
+            });
             // eslint-disable-next-line
       }, []);
       return data;

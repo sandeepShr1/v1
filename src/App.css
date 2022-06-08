@@ -19,12 +19,27 @@
   fill: #137B80;
 }
 
-.marks path {
-  stroke         : #137B80;
-  stroke-width   : 4;
-  stroke-linejoin: round;
-  stroke-linecap : round;
+.marks .land {
+  fill: #91bfc1;
 }
+
+.marks .sphere {
+  fill: #ececec;
+}
+
+.marks .interiors {
+  fill  : none;
+  stroke: #137B80;
+
+}
+
+.marks .graticule {
+  fill  : none;
+  stroke: #d4cac6;
+
+}
+
+
 
 .label-text {
   font-size: 1.9em;
