@@ -2,7 +2,8 @@ import './App.css';
 import V1 from './components/v1/V1';
 
 const width = 960;
-const height = 500;
+const menuHeight = 0;
+const height = 500 - menuHeight;
 const margin = { top: 40, left: 100, right: 30, bottom: 50 }
 
 function App() {

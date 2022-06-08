@@ -7,6 +7,26 @@
   font-family: 'Lato', sans-serif;
 }
 
+.dropdown-container {
+  display    : flex;
+  align-items: center;
+  margin-left: 3.4rem;
+
+}
+
+.d-container {
+  margin: 1rem;
+}
+
+label,
+select {
+  font-size: 2em;
+}
+
+select option {
+  font-size: 1rem;
+}
+
 .tick line {
   stroke: #C0C0BB;
 }
