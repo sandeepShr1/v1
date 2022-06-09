@@ -6,10 +6,12 @@ import { AxisLeft } from "./AxisLeft"
 import { Marks } from "./Marks"
 import { extent } from "d3";
 import { Dropdown } from "./Dropdown";
+import { ColorLegend } from "./ColorLegend.js"
 
 const xAxisLabelOffset = 45;
 const yAxisLabelOffset = 40;
 const siFormat = format(".2s");
+const tickSpacing = 25;
 
 
 const attribute = [
@@ -46,7 +48,9 @@ const V1 = ({ height, width, margin }) => {
 
       const xValue = (d) => d[xAttribute];
       const yValue = (d) => d[yAttribute];
+
       const colorValue = (d) => d["species"];
+      const colorLegendLabel = "Species"
 
       const innerHeight = height - margin.top - margin.bottom;
       const innerWidth = width - margin.left - margin.right;
@@ -105,6 +109,17 @@ const V1 = ({ height, width, margin }) => {
                                     tickOffset={tickOffset}
                               />
                               <AxisLeft yScale={yScale} innerWidth={innerWidth} tickOffset />
+
+                              <g  transform={`translate(${innerWidth + 60},50)`}>
+                                    <text
+                                          x={35}
+                                          y={-25}
+                                          className="label-text"
+                                          textAnchor="middle"
+                                    >{colorLegendLabel}</text>
+                                    <ColorLegend colorScale={colorScale} tickSpacing={tickSpacing} />
+                              </g>
+
                               <text
                                     className="label-text"
                                     x={innerWidth / 2}

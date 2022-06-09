@@ -6,7 +6,7 @@ export const Marks = ({ yScale, xScale, data, xValue, yValue, colorValue, colorS
                   cx={xScale(xValue(d))}
                   cy={yScale(yValue(d))}
                   fill={colorScale(colorValue(d))}
-                  r={10}
+                  r={7}
             >
                   <title>{toolTipFormate(xValue(d))}</title>
             </circle>
