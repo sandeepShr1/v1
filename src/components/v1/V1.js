@@ -13,6 +13,8 @@ const yAxisLabelOffset = 40;
 const siFormat = format(".2s");
 const tickSpacing = 25;
 
+const fadedOpacity = 0.3;
+
 
 const attribute = [
       { value: "sepal_length", label: "Sepal Length" },
@@ -46,23 +48,28 @@ const V1 = ({ height, width, margin }) => {
       const [xAttribute, setXAttribute] = useState(initialXAttribute);
       const [yAttribute, setYAttribute] = useState(initialYAttribute);
 
+      const [hoverValue, setHoverValue] = useState(null);
+
+      const innerHeight = height - margin.top - margin.bottom;
+      const innerWidth = width - margin.left - margin.right;
+
+
+      const xAxisLabel = getLabel(xAttribute);
+      const yAxisLabel = getLabel(yAttribute);
+
+      const data = useData();
+      if (!data) {
+            return <pre>Loading...</pre>
+      }
+
+
       const xValue = (d) => d[xAttribute];
       const yValue = (d) => d[yAttribute];
 
       const colorValue = (d) => d["species"];
       const colorLegendLabel = "Species"
 
-      const innerHeight = height - margin.top - margin.bottom;
-      const innerWidth = width - margin.left - margin.right;
-      const data = useData();
-
-      const xAxisLabel = getLabel(xAttribute);
-      const yAxisLabel = getLabel(yAttribute);
-
-
-      if (!data) {
-            return <pre>Loading...</pre>
-      }
+      const filterData = data.filter(d => hoverValue === colorValue(d));
 
       const xScale = scaleLinear()
             // .domain([min(data, xValue), max(data, xValue)]) extends does same
@@ -110,14 +117,20 @@ const V1 = ({ height, width, margin }) => {
                               />
                               <AxisLeft yScale={yScale} innerWidth={innerWidth} tickOffset />
 
-                              <g  transform={`translate(${innerWidth + 60},50)`}>
+                              <g transform={`translate(${innerWidth + 60},50)`}>
                                     <text
                                           x={35}
                                           y={-25}
                                           className="label-text"
                                           textAnchor="middle"
                                     >{colorLegendLabel}</text>
-                                    <ColorLegend colorScale={colorScale} tickSpacing={tickSpacing} />
+                                    <ColorLegend
+                                          colorScale={colorScale}
+                                          tickSpacing={tickSpacing}
+                                          onHover={setHoverValue}
+                                          hoverValue={hoverValue}
+                                          fadedOpacity={fadedOpacity}
+                                    />
                               </g>
 
                               <text
@@ -135,8 +148,20 @@ const V1 = ({ height, width, margin }) => {
                                     {yAxisLabel}
                               </text>
 
+                              <g opacity={hoverValue ? fadedOpacity : 1}>
+                                    <Marks
+                                          data={data}
+                                          xScale={xScale}
+                                          yScale={yScale}
+                                          xValue={xValue}
+                                          yValue={yValue}
+                                          colorScale={colorScale}
+                                          colorValue={colorValue}
+                                          toolTipFormate={xAxisTickFormat}
+                                    />
+                              </g>
                               <Marks
-                                    data={data}
+                                    data={filterData}
                                     xScale={xScale}
                                     yScale={yScale}
                                     xValue={xValue}
@@ -145,6 +170,7 @@ const V1 = ({ height, width, margin }) => {
                                     colorValue={colorValue}
                                     toolTipFormate={xAxisTickFormat}
                               />
+
                         </g>
                   </svg >
             </>
