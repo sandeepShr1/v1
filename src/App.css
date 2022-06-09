@@ -15,16 +15,26 @@
 }
 
 .d-container {
-  margin: 1rem;
+  margin    : 0 3rem;
+  margin-top: 2rem;
 }
 
-label,
+label {
+  margin-right: .5rem;
+  font-size   : 1.8rem;
+  color       : #635F5D;
+  ;
+}
+
 select {
-  font-size: 2em;
+  font-size: 1.6rem;
+  padding  : 0.2rem 1.5rem;
+  color    : #635F5D;
+
 }
 
 select option {
-  font-size: 1rem;
+  font-size: 1.4rem;
 }
 
 .tick line {
@@ -35,9 +45,6 @@ select option {
   fill: #635F5D;
 }
 
-.mark {
-  fill: #137B80;
-}
 
 .label-text {
   font-size: 1.7em;
