@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { scaleLinear, format } from "d3";
+import { scaleLinear, format, scaleOrdinal } from "d3";
 import { useData } from './useData';
 import { AxisBottom } from "./AxisBottom"
 import { AxisLeft } from "./AxisLeft"
@@ -46,6 +46,7 @@ const V1 = ({ height, width, margin }) => {
 
       const xValue = (d) => d[xAttribute];
       const yValue = (d) => d[yAttribute];
+      const colorValue = (d) => d["species"];
 
       const innerHeight = height - margin.top - margin.bottom;
       const innerWidth = width - margin.left - margin.right;
@@ -69,13 +70,15 @@ const V1 = ({ height, width, margin }) => {
             .domain(extent(data, yValue))
             .range([0, innerHeight])
             .nice();
-
+      const colorScale = scaleOrdinal()
+            .domain(data.map(colorValue))
+            .range(["#E6842A", "#137B80", "#8E6C8A"])
 
       return (
             <>
                   <div className="dropdown-container">
                         <div className="d-container">
-                              <label htmlFor="x-select">X:</label>
+                              <label htmlFor="x-select">X</label>
                               <Dropdown
                                     options={attribute}
                                     id="x-select"
@@ -84,7 +87,7 @@ const V1 = ({ height, width, margin }) => {
                               />
                         </div>
                         <div className="d-container">
-                              <label htmlFor="y-select">Y:</label>
+                              <label htmlFor="y-select">Y</label>
                               <Dropdown
                                     options={attribute}
                                     id="y-select"
@@ -118,11 +121,13 @@ const V1 = ({ height, width, margin }) => {
                               </text>
 
                               <Marks
-                                    yScale={yScale}
-                                    xScale={xScale}
                                     data={data}
+                                    xScale={xScale}
+                                    yScale={yScale}
                                     xValue={xValue}
                                     yValue={yValue}
+                                    colorScale={colorScale}
+                                    colorValue={colorValue}
                                     toolTipFormate={xAxisTickFormat}
                               />
                         </g>
