@@ -1,12 +1,15 @@
-import { useData } from './useData';
+import { useWorldAtlas } from './useWorldAtlas';
 import { Marks } from "./Marks"
+import { useCities } from './useCities';
 
 
 const V1 = ({ height, width, margin }) => {
 
-      const data = useData();
+      const data = useWorldAtlas();
+      const cities = useCities();
 
-      if (!data) {
+
+      if (!data || !cities) {
             return <pre>Loading...</pre>
       }
 
@@ -15,7 +18,7 @@ const V1 = ({ height, width, margin }) => {
 
 
                   <Marks
-                        data={data}
+                        data={data} cities={cities}
                   />
 
             </svg >

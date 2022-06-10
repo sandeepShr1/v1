@@ -16,11 +16,11 @@
 }
 
 .marks circle {
-  fill: #137B80;
+  fill: #459ea3;
 }
 
 .marks .land {
-  fill: #91bfc1;
+  fill: #c2cacb;
 }
 
 .marks .sphere {
@@ -29,17 +29,20 @@
 
 .marks .interiors {
   fill  : none;
-  stroke: #137B80;
+  stroke: #8aa8aa;
 
 }
 
 .marks .graticule {
   fill  : none;
-  stroke: #d4cac6;
+  stroke: #ebdfdb;
 
 }
 
-
+circle {
+  fill   : #137B80;
+  opacity: 50%;
+}
 
 .label-text {
   font-size: 1.9em;
