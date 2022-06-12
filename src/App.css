@@ -15,7 +15,7 @@
   fill: #635F5D;
 }
 
-.marks circle {
+.marks {
   fill: #137B80;
 }
 
@@ -27,6 +27,6 @@
 }
 
 .label-text {
-  font-size: 1.9em;
+  font-size: 1.5em;
   fill     : #635F5D;
 }

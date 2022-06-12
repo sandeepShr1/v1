@@ -1,18 +1,19 @@
-import { csv } from 'd3';
 import { useState, useEffect } from 'react';
+import { csv } from 'd3';
 
+const csvUrl =
+      'https://gist.githubusercontent.com/sandeepShr1/30f968f5228a2d9d3334159286fd18c3/raw/Migrants%2520Dead%2520data';
 export const useData = () => {
-      const url = "https://gist.githubusercontent.com/curran/90240a6d88bdb1411467b21ea0769029/raw/week_temperature_sf.csv";
       const [data, setData] = useState(null);
-      useEffect(() => {
-            const row = (d) => {
-                  d.temperature = +d.temperature;
-                  d.timestamp = new Date(d.timestamp)
 
+      useEffect(() => {
+            const row = d => {
+                  d['Total Dead and Missing'] = +d['Total Dead and Missing'];
+                  d['Reported Date'] = new Date(d['Reported Date']);
                   return d;
-            }
-            csv(url, row).then(setData);
-            // eslint-disable-next-line
+            };
+            csv(csvUrl, row).then(setData);
       }, []);
+
       return data;
-}
+};

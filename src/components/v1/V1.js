@@ -4,25 +4,29 @@ import { AxisBottom } from "./AxisBottom"
 import { AxisLeft } from "./AxisLeft"
 import { Marks } from "./Marks"
 import { extent } from "d3";
+import { bin } from "d3";
+import { timeMonths } from "d3";
+import { sum } from "d3";
+import { max } from "d3";
 
 const xAxisLabelOffset = 50;
-const yAxisLabelOffset = 40;
+const yAxisLabelOffset = 50;
 
 
 const xAxisLabel = "Time";
-const yAxisLabel = "Temperature";
+const yAxisLabel = "Total Deaths and Missing";
 
 const tickOffset = 0;
 
-const xAxisTickFormat = timeFormat("%a");
+const xAxisTickFormat = timeFormat('%m/%d/%Y');
 
 const V1 = ({ height, width, margin }) => {
       const innerHeight = height - margin.top - margin.bottom;
       const innerWidth = width - margin.left - margin.right;
       const data = useData();
 
-      const xValue = (d) => d.timestamp;
-      const yValue = (d) => d.temperature;
+      const xValue = (d) => d['Reported Date'];
+      const yValue = (d) => d['Total Dead and Missing'];
 
       if (!data) {
             return <pre>Loading...</pre>
@@ -34,11 +38,22 @@ const V1 = ({ height, width, margin }) => {
             .range([0, innerWidth])
             .nice(); // make ending points nice number
 
+      const [start, stop] = xScale.domain();
+
+      const binnedData = bin()
+            .value(xValue)
+            .domain(xScale.domain())
+            .thresholds(timeMonths(start, stop))(data)
+            .map(array => ({
+                  y: sum(array, yValue), // totalDeadAndMissing=y
+                  x0: array.x0,
+                  x1: array.x1
+            }));
+
       const yScale = scaleLinear()
-            .domain(extent(data, yValue))
+            .domain([0, max(binnedData, d => d.y)])
             .range([innerHeight, 0])
             .nice();
-
 
       return (
             <svg width={width} height={height} >
@@ -66,16 +81,15 @@ const V1 = ({ height, width, margin }) => {
                         </text>
 
                         <Marks
-                              yScale={yScale}
+                              data={binnedData}
                               xScale={xScale}
-                              data={data}
-                              xValue={xValue}
-                              yValue={yValue}
-                              toolTipFormate={xAxisTickFormat}
-                              circleRadius={4}
+                              yScale={yScale}
+                              tooltipFormat={d => d}
+                              innerHeight={innerHeight}
                         />
                   </g>
             </svg >
+
       )
 }
 
